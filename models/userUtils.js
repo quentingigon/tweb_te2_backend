@@ -2,12 +2,9 @@ const UserSchema = require('./user')
 
 function addMovieToWatchList(username, movie) {
   const user = UserSchema.UserModel.find({ username })
-  let watchlist = user.watchlist + movieId
+  let watchlist = user.watchlist + movie
   user.update({ username }, {
     watchlist,
-  }, (err, raw) => {
-    if (err) console.log('Error: ', err)
-      console.log('Dev was updated')
   })
 }
 
