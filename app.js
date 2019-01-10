@@ -10,7 +10,6 @@ dotenv.config()
 const conf = require('./conf').default
 // Get database models
 const User = require('./models/user')
-const Movie = require('./models/movie')
 const movieUtils = require('./models/movieUtils')
 const userUtils = require('./models/userUtils')
 
@@ -64,15 +63,22 @@ connectWithRetry()
  * Unprotected routes
  *******************************************/
 
+ app.get('/', (req, res, next) => {
+	res.send('hello world')
+ 		.catch(next)
+ })
+
 /**
 * Sign a user up
 */
 app.post('/auth/register', (req, res, next) => {
-	const { username, email, password } = req.body
-	User.find({ username: username })
+	const username  = req.body.username
+	const password = req.body.password
+	const email = req.body.email
+	User.UserModel.find({ username})
 		.then(result => {
 			if (result.length === 0) {
-				User.create({
+				User.UserModel.create({
 					username: username,
 					email: email,
 					password: password
@@ -89,11 +95,11 @@ app.post('/auth/register', (req, res, next) => {
 })
 
 /**
-* Sign a user in
+* register a user 
 */
 app.post('/auth/login', (req, res, next) => {
 	const { username, password } = req.body
-	User.findOne({ username })
+	User.UserModel.findOne({ username })
 		.then((user) => {
 			if (password === user.password) {
 				const payload = { username }
@@ -118,7 +124,7 @@ app.post('/auth/login', (req, res, next) => {
 })
 
 app.get('/movies', (req, res, next) => {
-	// get page in query or it is page 1 with 10 element per page
+	// get page in query or it is page 1. with 10 element per page
 	return movieUtils.findAllMoviesWithPagination(req.query.page || 1, 10)
 		.catch(next)
 })

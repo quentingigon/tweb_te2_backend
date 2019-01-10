@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
-const  {Schema}  = mongoose
+const { Schema } = mongoose
 
-const Movie = new Schema({
+const MovieSchema = new Schema({
   vote_count: Boolean,
   vote_average: Number,
   title: String,
@@ -18,4 +18,4 @@ const Movie = new Schema({
   genres: [String]
 })
 
-module.exports = mongoose.model('movies', Movie)
+module.exports.MovieModel = mongoose.model('movies', MovieSchema)
