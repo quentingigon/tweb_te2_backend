@@ -101,7 +101,7 @@ app.post('/auth/login', (req, res, next) => {
 					expiresIn: 60 * 60 * 24 // expires in 24 hours
 				})
 				// return the information including token as JSON
-				res.json({
+				res.status(201).json({
 					success: true,
 					token,
 					user: {

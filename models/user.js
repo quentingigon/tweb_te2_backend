@@ -9,4 +9,4 @@ const user = new Schema({
   watchlist: [{ type: Schema.Types.ObjectId, ref: 'movies' }]
 })
 
-module.exports = mongoose.model('gigon-users', user)
+module.exports = mongoose.model('users', user)
